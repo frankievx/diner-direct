@@ -11,6 +11,11 @@ const fetcher = (query) =>
     .then((res) => res.json())
     .then((json) => json.data)
 
+
+
+
+
+
 export default function Index() {
   const { data, error } = useSWR('{ users { name } }', fetcher)
 
@@ -20,10 +25,8 @@ export default function Index() {
   const { users } = data
 
   return (
-    <div>
-      {users.map((user, i) => (
-        <div key={i}>{user.name}</div>
-      ))}
+    <div className="bg-light h-screen">
+
     </div>
   )
 }

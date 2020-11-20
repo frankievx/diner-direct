@@ -3,14 +3,13 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      primary: "#6B9080",
-      primary1: "#6B9080",
-      secondary: "#D68C45",
-      secondary2: "#D68C45",
+      primary: "#A50104",
+      secondary: "#FCBA04",
+      tertiary: "#590004",
       accent: "#FEFEE3",
-      light: "#F6FFF8",
-      dark: "#122B1D",
-      white1: "#fff",
+      light: "#edf2f4",
+      dark: "#250001",
+      whites: "#fff",
       gray: {
         100: "#f5f5f5",
         200: "#eeeeee",

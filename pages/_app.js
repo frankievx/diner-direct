@@ -1,5 +1,6 @@
 import "../styles/tailwind.css";
 import '../styles/globals.css'
+import Head from "next/head";
 import { useState } from "react"
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
@@ -36,15 +37,22 @@ function MyApp({ Component, pageProps, router }) {
     console.log('showSplashScreen', showSplashScreen);
   }, 3000)
   return (
-    <MainLayout>
-      {/* <AnimatePresence exitBeforeEnter> */}
+    <div>
+      <Head>
+        <title>Diner Direct</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <MainLayout>
+        {/* <AnimatePresence exitBeforeEnter> */}
         {showSplashScreen ? (
           <SplashScreen />
         ) : (
           <Component {...pageProps} key={router.route} />
         )}
-      {/* </AnimatePresence> */}
-    </MainLayout>
+        {/* </AnimatePresence> */}
+      </MainLayout>
+      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    </div>
   );
 }
 

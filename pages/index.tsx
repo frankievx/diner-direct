@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import Table from '../components/Table'
+import Table from '../components/table/Table'
 const fetcher = (query) =>
   fetch('/api/graphql', {
     method: 'POST',

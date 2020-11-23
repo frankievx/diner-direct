@@ -1,6 +1,6 @@
 const MainLayout = ({ children }) => (
-  <div className="bg-light">
-    <div className="content-wrapper">{children}</div>
+  <div className="bg-light h-screen">
+    <div className="h-full">{children}</div>
   </div>
 );
 

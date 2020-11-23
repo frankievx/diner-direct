@@ -31,10 +31,10 @@ function SplashScreen() {
 
 function MyApp({ Component, pageProps, router }) {
   const [showSplashScreen, setShowSplashScreen] = useState(true)
-  // setTimeout(() => {
-  //   setShowSplashScreen(false)
-  //   console.log('showSplashScreen', showSplashScreen);
-  // }, 3000)
+  setTimeout(() => {
+    setShowSplashScreen(false)
+    console.log('showSplashScreen', showSplashScreen);
+  }, 3000)
   return (
     <MainLayout>
       {/* <AnimatePresence exitBeforeEnter> */}

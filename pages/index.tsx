@@ -17,25 +17,18 @@ const fetcher = (query) =>
 
 
 export default function Index() {
-  const { data, error } = useSWR('{ users { name } }', fetcher)
+  const { data, error } = useSWR('{ restaurants { name, city, state, phone, genre } }', fetcher)
 
   if (error) return <div>Failed to load</div>
   if (!data) return <div>Loading...</div>
 
-  const { users } = data
+  const { restaurants } = data
   const columns = [
     { label: 'Name', field: 'name' },
     { label: 'City', field: 'city' },
     { label: 'State', field: 'state' },
     { label: 'Phone', field: 'phone' },
     { label: 'Genre', field: 'genre' }
-  ]
-  const restaurants = [
-    { name: 'Perfect Pizzaria', city: 'Denver', state: 'CO', phone: '(703) 552-2333', genre: 'italian' },
-    { name: 'Great Greek', city: 'Boulder', state: 'CO', phone: '(703) 525-2233', genre: 'greek' },
-    { name: 'Super Sushi', city: 'Denver', state: 'CO', phone: '(703) 552-2333', genre: 'asian' },
-    { name: 'Champion Chinese', city: 'Colorado Sprinngs', state: 'CO', phone: '(703) 352-2433', genre: 'asian' },
-    { name: "Papa's Pastas", city: 'Denver', state: 'CO', phone: '(703) 552-2333', genre: 'italian' }
   ]
   return (
     <div className="h-full container">

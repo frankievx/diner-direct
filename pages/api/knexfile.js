@@ -1,3 +1,6 @@
+require("dotenv").config({ path: "../../.env.local" });
+
+
 module.exports = {
   development: {
     client: "pg",
@@ -8,6 +11,13 @@ module.exports = {
       user: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       ssl: { rejectUnauthorized: false },
+    },
+    pool: {
+      min: 1,
+      max: 1,
+    },
+    seeds: {
+      directory: "./seeds/",
     },
     // searchPath: ["knex", "public"],
     migrations: {

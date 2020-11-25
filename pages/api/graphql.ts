@@ -13,7 +13,11 @@ db.raw('select 1+1 as result').then(result => {
 
 const typeDefs = gql`
   type Query {
-    restaurants(limit: Int = 20, skip: Int = 0): [Restaurant!]!
+    restaurants: Restaurants!
+  }
+  type Restaurants {
+    items(search: String = "", limit: Int = 20, offset: Int = 0): [Restaurant!]!,
+    count: Int!
   }
   type Restaurant {
     id: ID!,
@@ -34,15 +38,39 @@ const resolvers = {
         .from("restaurants")
         .orderBy("name", "asc")
         .limit(args.limit)
-        .offset(args.skip);
+        .offset(args.offset);
     },
+  },
+  Restaurants: {
+    async items (parent, args, context) {
+      console.log('args.search', args.search);
+      return db
+        .select("*")
+        .from("restaurants")
+        .orderBy("name", "asc")
+        .where(function () {
+          if (args.search) {
+            this.where('name', args.search)
+            this.orWhere('city', args.search)
+            this.orWhere('genre', args.search)
+          }
+        })
+        .limit(args.limit)
+        .offset(args.offset);
+    },
+    async count (parent, args, context) {
+      let count = await  db("restaurants")
+      .count('restaurant_id')
+      return Number(count[0].count)
+
+    }
   },
   Restaurant: {
     id: (restaurant, _args, _context) => restaurant.restaurant_id
   }
 }
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers })
+const apolloServer = new ApolloServer({ typeDefs, resolvers, playground: true, })
 
 export const config = {
   api: {

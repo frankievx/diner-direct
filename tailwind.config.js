@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: '2rem'
+      padding: "2rem",
     },
     colors: {
       primary: "#A50104",
@@ -13,7 +13,7 @@ module.exports = {
       accent: "#FEFEE3",
       light: "#edf2f4",
       dark: "#250001",
-      whites: "#fff",
+      white: "#fff",
       gray: {
         100: "#f5f5f5",
         200: "#eeeeee",
@@ -30,6 +30,9 @@ module.exports = {
   },
   variants: {
     cursor: ["responsive", "hover", "focus"],
+    margin: ["first", "last"],
+    padding: ["first", "last"],
+    borderRadius: ["first", "last"],
     borderColor: ["responsive", "hover", "focus", "focus-within"],
     borderWidth: ["responsive", "hover", "focus", "focus-within"],
     backgroundColor: ["hover", "focus", "active", "focus-within"],

@@ -17,7 +17,7 @@ const typeDefs = gql`
   }
   type Restaurants {
     items(search: String = "", limit: Int = 20, offset: Int = 0): [Restaurant!]!,
-    count: Int!
+    count(search: String = ""): Int!
   }
   type Restaurant {
     id: ID!,
@@ -32,7 +32,6 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     async restaurants(parent, args, context) {
-      console.log('args', args);
       return db
         .select("*")
         .from("restaurants")
@@ -43,16 +42,15 @@ const resolvers = {
   },
   Restaurants: {
     async items (parent, args, context) {
-      console.log('args.search', args.search);
       return db
         .select("*")
         .from("restaurants")
         .orderBy("name", "asc")
         .where(function () {
           if (args.search) {
-            this.where('name', args.search)
-            this.orWhere('city', args.search)
-            this.orWhere('genre', args.search)
+            this.where("name", "ILIKE", `%${args.search}%`)
+            .orWhere("city", "ILIKE", `%${args.search}%`)
+            .orWhere("genre", "ILIKE", `%${args.search}%`)
           }
         })
         .limit(args.limit)
@@ -60,9 +58,15 @@ const resolvers = {
     },
     async count (parent, args, context) {
       let count = await  db("restaurants")
+      .where(function () {
+        if (args.search) {
+          this.where("name", "ILIKE", `%${args.search}%`)
+          .orWhere("city", "ILIKE", `%${args.search}%`)
+          .orWhere("genre", "ILIKE", `%${args.search}%`)
+        }
+      })
       .count('restaurant_id')
       return Number(count[0].count)
-
     }
   },
   Restaurant: {

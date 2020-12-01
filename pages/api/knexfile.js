@@ -14,7 +14,9 @@ module.exports = {
     },
     pool: {
       min: 1,
-      max: 1,
+      max: 2,
+      // acquireTimeoutMillis: 10000,
+      idleTimeoutMillis: 5000,
     },
     seeds: {
       directory: "./seeds/",

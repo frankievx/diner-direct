@@ -4,11 +4,13 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
     },
     colors: {
       primary: "#A50104",
+      "primary-1": "#FE5558",
       secondary: "#FCBA04",
+      "secondary-1": "#FEE193",
       tertiary: "#590004",
       accent: "#FEFEE3",
       light: "#edf2f4",

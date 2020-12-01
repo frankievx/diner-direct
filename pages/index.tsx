@@ -1,57 +1,59 @@
 import useSWR from 'swr'
 import { useState, useEffect } from "react";
+import fetcher from '../utils/fetcher'
 import Table from '../components/table/Table'
 import SearchInput from '../components/SearchInput'
 import Sidebar from '../components/Sidebar'
-const fetcher = (query) =>
-  fetch('/api/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => json.data)
 
 
 
 export default function Index() {
-  let items, count
+  let items, count, genres, states
   const [ filters, setFilters ] = useState([])
   const [ offset, setOffset ] = useState(0)
   const [ limit, setLimit ] = useState(10)
   const [ search, setSearch ] = useState('')
   const [term, setTerm] = useState("");
+  const [genre, setGenre] = useState("")
+  const [state, setState] = useState("");
+
+  // const [ genres, setGenres ] = useState([])
 
   const { data, mutate, error } = useSWR(
-    `{ restaurants { items(offset:${offset}, limit:${limit}, search:"${search}") {name, city, state, phone, genre}, count(search:"${search}") } }`,
+    `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${genre}", state: "${state}") {name, city, state, phone, genre}, count(search:"${search}") } }`,
     fetcher
   );
 
   if (error) return <div>Failed to load</div>
   if (!data) {
-    items = [], count = 0
+    items = [], count = 0, genres = [], states = []
   } else {
     const { restaurants } = data
     items = restaurants.items
     count = restaurants.count
-
+    genres = restaurants.genres
+    states = restaurants.states;
     let filters = []
   }
   
   const columns = [
     { label: 'Name', field: 'name' },
     { label: 'City', field: 'city' },
-    { label: 'State', field: 'state', filter: true },
+    { label: 'State', field: 'state'},
     { label: 'Phone', field: 'phone' },
-    { label: 'Genre', field: 'genre', filter: true }
+    { label: 'Genre', field: 'genre'}
   ]
 
   const sidebarConfig = {
     searchHandler,
     term,
-    setTerm
+    setTerm,
+    genres,
+    states,
+    genre,
+    state,
+    setState,
+    setGenre
   }
 
   const config = {

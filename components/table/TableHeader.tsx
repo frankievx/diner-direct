@@ -40,7 +40,6 @@ const TableFilterInput = (props) => {
 
 const TableHeader = (props) => {
   let { column } = props;
-  let [showFilter, setShowFilter] = useState(false);
   let headerClassNames = classNames(
     "font-semibold",
     "flex",
@@ -54,21 +53,18 @@ const TableHeader = (props) => {
     { "ml-4": column.index === 0},
     {"mr-4": column.last}
   );
-  let filterClassNames = classNames("m-1", "flex", { hidden: !showFilter });
+  let filterClassNames = classNames("m-1", "flex");
 
-  function toggleFilter() {
-    setShowFilter(!showFilter);
-  }
+  // function toggleFilter() {
+  //   setShowFilter(!showFilter);
+  // }
   if (column.filter)
     return (
       <div>
         <div className={headerClassNames}>
           <div className="flex-initial float-left">{column.label}</div>
           <div className="flex-initial float-right">
-            <TableFilterIcon
-              showFilter={showFilter}
-              setShowFilter={setShowFilter}
-            />
+            <TableFilterIcon />
           </div>
         </div>
         <div className={filterClassNames}>
@@ -83,6 +79,10 @@ const TableHeader = (props) => {
       <div>
         <div className={headerClassNames}>
           <div className="flex-initial float-left">{column.label}</div>
+          <div className="text-sm my-auto">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+            <ion-icon name="arrow-down-outline"></ion-icon>
+          </div>
           {/* <div className="flex-initial float-right">
           <TableFilterIcon />
         </div> */}

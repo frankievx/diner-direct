@@ -12,6 +12,7 @@ const TableCell = (props) => {
     "py-1",
     'px-1',
     'h-8',
+    'truncate',
     {
       "rounded-l-lg": column.index === 0,
       "rounded-r-lg": column.last,

@@ -7,7 +7,8 @@ const LinkItem = ({ label, selected, onSelect }) => {
     "border-b-4": selected, 
     'border-solid': selected,
     "border-primary": selected,
-    "text-primary": selected
+    "text-primary": selected,
+    "shadow-md": selected
   });
   return (
     <div className={linkClasses} onClick={() => onSelect(label)}>
@@ -41,13 +42,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="float-right my-auto  text-gray-800 border-gray-500 mr-24 flex px-4 py-1 rounded-full border cursor-pointer hover:text-primary hover:border-primary">
-        <div className="rounded-lg text-sm py-1 mr-2 my-auto">
-          Welcome!
-        </div>
-        <div className="p-4 bg-primary rounded-full my-auto">
-
-        </div>
+      <div className="float-right my-auto  text-gray-800 border-gray-500 mr-24 flex px-4 py-1 rounded-full border cursor-pointer hover:bg-primary-1 hover:text-primary hover:border-primary">
+        <div className="rounded-lg text-sm py-1 mr-2 my-auto">Welcome!</div>
+        <div className="p-4 bg-primary rounded-full my-auto"></div>
       </div>
     </div>
   );

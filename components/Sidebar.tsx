@@ -18,7 +18,7 @@ const Sidebar = ({config}) => {
             setTerm={config.setTerm}
           />
         </div>
-        <div className="flex rounded-lg py-1 mt-4  tracking-wide text-center cursor-pointer bg-primary text-white shadow-md">
+        <div className="flex rounded-lg py-1 mt-8  tracking-wide text-center cursor-pointer bg-primary text-white shadow-md">
           <div className="text-left ml-4 my-auto">
             <ion-icon class="block" name="search-outline"></ion-icon>
           </div>
@@ -43,7 +43,7 @@ const Sidebar = ({config}) => {
             onFilter={config.setGenre}
           />
         </div>
-        <div className="flex rounded-lg py-1 mt-4  tracking-wide text-center cursor-pointer bg-primary text-white shadow-md">
+        <div className="flex rounded-lg py-1 mt-8 tracking-wide text-center cursor-pointer bg-primary text-white shadow-md">
           <div className="text-left ml-4 my-auto">
             <ion-icon class="block" name="filter-outline"></ion-icon>
           </div>

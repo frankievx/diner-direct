@@ -46,12 +46,16 @@ const TableHeader = (props) => {
     "justify-between",
     "px-2",
     "py-1",
+    "mt-3",
+    "mb-4",
     "h-8",
-    "hover:bg-gray-200",
+    "hover:bg-primary-1",
+    "hover:text-primary",
     "text-gray-800",
+    "cursor-pointer",
     "rounded",
-    { "ml-4": column.index === 0},
-    {"mr-4": column.last}
+    { "ml-4": column.index === 0 },
+    { "mr-4": column.last }
   );
   let filterClassNames = classNames("m-1", "flex");
 
@@ -79,7 +83,7 @@ const TableHeader = (props) => {
       <div>
         <div className={headerClassNames}>
           <div className="flex-initial float-left">{column.label}</div>
-          <div className="text-sm my-auto">
+          <div className="text-xs my-auto">
             <ion-icon name="arrow-up-outline"></ion-icon>
             <ion-icon name="arrow-down-outline"></ion-icon>
           </div>

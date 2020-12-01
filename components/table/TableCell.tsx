@@ -4,15 +4,14 @@ const TableCell = (props) => {
   const { rows, row, column, hoverIndex, setHoverIndex } = props
   const cellRef = useRef()
   
-  let borderClasses = classNames({"border-b": !row.last}, "border-solid", "border-gray-200", "last:border-b-0");
+  let parentClasses = classNames({"border-b": !row.last}, "border-solid", "border-gray-200", "last:border-b-0", "text-gray-900");
   let classes = classNames(
-    "text-black",
     "text-left",
     "my-2",
     "py-1",
-    'px-1',
-    'h-8',
-    'truncate',
+    "px-1",
+    "h-8",
+    "truncate",
     {
       "rounded-l-lg": column.index === 0,
       "rounded-r-lg": column.last,
@@ -20,7 +19,7 @@ const TableCell = (props) => {
       "pr-2": column.last,
       "ml-4": column.index === 0,
       "mr-4": column.last,
-      "bg-gray-200": row.index === hoverIndex,
+      "bg-secondary-1": row.index === hoverIndex,
     }
   );
   const highlightRow = () => {
@@ -28,7 +27,7 @@ const TableCell = (props) => {
   }
   
   return (
-    <div className={borderClasses} >
+    <div className={parentClasses}>
       <div ref={cellRef} className={classes} onMouseEnter={highlightRow}>
         {row[column.field]}
       </div>

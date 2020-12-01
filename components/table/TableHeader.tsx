@@ -62,18 +62,14 @@ const TableHeader = (props) => {
   // function toggleFilter() {
   //   setShowFilter(!showFilter);
   // }
-  if (column.filter)
+  if (column.sortable)
     return (
       <div>
         <div className={headerClassNames}>
           <div className="flex-initial float-left">{column.label}</div>
-          <div className="flex-initial float-right">
-            <TableFilterIcon />
-          </div>
-        </div>
-        <div className={filterClassNames}>
-          <div className="flex-1 mx-auto">
-            <TableFilterInput />
+          <div className="text-xs my-auto">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+            <ion-icon name="arrow-down-outline"></ion-icon>
           </div>
         </div>
       </div>
@@ -83,13 +79,6 @@ const TableHeader = (props) => {
       <div>
         <div className={headerClassNames}>
           <div className="flex-initial float-left">{column.label}</div>
-          <div className="text-xs my-auto">
-            <ion-icon name="arrow-up-outline"></ion-icon>
-            <ion-icon name="arrow-down-outline"></ion-icon>
-          </div>
-          {/* <div className="flex-initial float-right">
-          <TableFilterIcon />
-        </div> */}
         </div>
       </div>
     );

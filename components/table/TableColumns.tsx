@@ -25,7 +25,7 @@ const TableColumns = ({ columns, rows, loading }) => {
       </div>
     </div>
   )
-  else return (
+  else if(rows.length > 0) return (
     <div
       className="grid grid-flow-col-dense auto-cols-auto"
       onMouseLeave={unhighlightRow}
@@ -45,6 +45,25 @@ const TableColumns = ({ columns, rows, loading }) => {
           />
         </div>
       ))}
+    </div>
+  );
+  else return (
+    <div>
+      <div
+        className="grid grid-flow-col-dense auto-cols-auto"
+        onMouseLeave={unhighlightRow}
+      >
+        {columns.map((column, i) => (
+          <div key={"column" + i}>
+            <TableHeader
+              column={{ ...column, index: i, last: columns.length - 1 === i }}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="flex h-96">
+        <div className="mx-auto my-auto">No Records Found.</div>
+      </div>
     </div>
   );
 };

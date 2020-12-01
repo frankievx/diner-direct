@@ -27,7 +27,7 @@ const typeDefs = gql`
     items(search: String = "", genre: String = "", state: String = "", limit: Int = 20, offset: Int = 0): [Restaurant!]!
     genres: [String!]!
     states: [String!]!
-    count(search: String = ""): Int!
+    count(search: String = "", genre: String = "", state: String = ""): Int!
   }
   type Restaurant {
     id: ID!
@@ -68,6 +68,7 @@ const resolvers = {
       return genres;
     },
     async items(parent, args, { db }) {
+      console.log('args', args);
       return db
         .select("*")
         .from("restaurants")
@@ -85,6 +86,8 @@ const resolvers = {
         .offset(args.offset);
     },
     async count(parent, args, { db }) {
+            console.log("args", args);
+
       let count = await db("restaurants")
         .where(function () {
           if (args.search) {

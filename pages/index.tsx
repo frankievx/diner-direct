@@ -8,7 +8,7 @@ import Sidebar from '../components/Sidebar'
 
 
 export default function Index() {
-  let items, count, genres, states
+  let items, count, genres, states, loading = false
   const [ filters, setFilters ] = useState([])
   const [ offset, setOffset ] = useState(0)
   const [ limit, setLimit ] = useState(10)
@@ -20,29 +20,29 @@ export default function Index() {
   // const [ genres, setGenres ] = useState([])
 
   const { data, mutate, error } = useSWR(
-    `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${genre}", state: "${state}") {name, city, state, phone, genre}, count(search:"${search}") } }`,
+    `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${genre}", state: "${state}") {name, city, state, phone, genre}, count(search:"${search}", genre: "${genre}", state: "${state}") } }`,
     fetcher
   );
 
   if (error) return <div>Failed to load</div>
   if (!data) {
-    items = [], count = 0, genres = [], states = []
+    items = [], count = 0, genres = [], states = [], loading = true
   } else {
     const { restaurants } = data
     items = restaurants.items
     count = restaurants.count
     genres = restaurants.genres
-    states = restaurants.states;
-    let filters = []
+    states = restaurants.states
+    loading = false
   }
   
   const columns = [
-    { label: 'Name', field: 'name' },
-    { label: 'City', field: 'city' },
-    { label: 'State', field: 'state'},
-    { label: 'Phone', field: 'phone' },
-    { label: 'Genre', field: 'genre'}
-  ]
+    { label: "Name", field: "name", sortable: true },
+    { label: "City", field: "city", sortable: false },
+    { label: "State", field: "state", sortable: true },
+    { label: "Phone", field: "phone", sortable: false },
+    { label: "Genre", field: "genre", sortable: false },
+  ];
 
   const sidebarConfig = {
     searchHandler,
@@ -63,6 +63,7 @@ export default function Index() {
     count,
     data: items,
     columns,
+    loading,
     paginate
   }
 

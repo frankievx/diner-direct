@@ -2,6 +2,7 @@ import GenreFilter from './GenreFilter';
 import SearchInput from './SearchInput'
 import SidebarItem from './SidebarItem'
 import StateFilter from './StateFilter';
+import Button from './global/Button'
 const Sidebar = ({config}) => {
   const items = [
     { icon: 'funnel-outline' }
@@ -43,12 +44,13 @@ const Sidebar = ({config}) => {
             onFilter={config.setGenre}
           />
         </div>
-        <div className="flex rounded-lg py-1 mt-8 tracking-wide text-center cursor-pointer bg-primary text-white shadow-md">
+        <div className="mt-8"><Button icon="filter-outline" label="Filter"/></div>
+        {/* <div className="flex rounded-lg py-1 mt-8 tracking-wide text-center cursor-pointer bg-primary text-white shadow-md">
           <div className="text-left ml-4 my-auto">
             <ion-icon class="block" name="filter-outline"></ion-icon>
           </div>
           <div className="mx-auto">Filter</div>
-        </div>
+        </div> */}
       </div>
       {/* {items.map(item => <SidebarItem item={item}/>)} */}
     </div>

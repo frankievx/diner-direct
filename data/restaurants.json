@@ -1,0 +1,17 @@
+{
+  "restaurants": [
+    { "name": "Paolo's Pastas", "city": "Lakeland", "state": "FL", "phone": "863-223-4382", "genre": "Dinner" },
+    { "name": "George's Gyros", "city": "Mitchellhaven", "state": "MT", "phone": "743-268-8173", "genre": "Lunch" },
+    { "name": "Bob's Burgers", "city": "Cristside", "state": "NE", "phone": "269-651-0226", "genre": "Lunch" },
+    { "name": "Bernie's Barbeque", "city": "Runolfsdottirhaven", "state": "ID", "phone": "382-563-2489", "genre": "Dinner" },
+    { "name": "Tammy's Tacos", "city": "Lake Kathlyn", "state": "MT", "phone": "565-386-9086", "genre": "Lunch" },
+    { "name": "Peter's Pizza", "city": "Jalynbury", "state": "NE", "phone": "476-301-2424", "genre": "Dinner" },
+    { "name": "Ben's Burritos", "city": "West Carolmouth", "state": "IL", "phone": "313-744-0509", "genre": "Lunch" },
+    { "name": "Yolanda's Yogurts", "city": "Johnpaulside", "state": "MD", "phone": "406-208-8653", "genre": "Breakfast" },
+    { "name": "Carl's Coffee", "city": "West Jacynthe", "state": "NY", "phone": "785-911-5552", "genre": "Breakfast" },
+    { "name": "Sam's Sandwiches", "city": "Elenahaven", "state": "KY", "phone": "598-746-4627", "genre": "Lunch" },
+    { "name": "Sheryl's Salads", "city": "Tadside", "state": "ID", "phone": "723-567-8086", "genre": "Breakfast" },
+    { "name": "Sam's Soups", "city": "Shieldsbury", "state": "WY", "phone": "808-822-2389", "genre": "Breakfast" },
+    { "name": "Wendy's Wraps", "city": "Luluchester", "state": "RI", "phone": "521-849-0300", "genre": "Lunch" }
+  ]
+}

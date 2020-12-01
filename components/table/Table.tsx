@@ -2,6 +2,7 @@ import { useState } from "react";
 import TableFilters from "./TableFilters";
 import TablePagination from "./TablePagination";
 import TableColumns from "./TableColumns";
+import TableImport from "./TableImport"
 
 const Table = (props) => {
   let { columns, data, filters, offset, limit, count, paginate, loading } = props.config;
@@ -20,13 +21,16 @@ const Table = (props) => {
       </div>
       <div className="relative border-solid border-gray-300 w-full"></div>
       <div className="">
-        <div className="mx-4 my-3">
+        <div className="mx-4 my-3 flex justify-between">
           <TablePagination
             offset={offset}
             limit={limit}
             count={count}
             paginate={paginate}
           />
+          <div className="">
+            <TableImport />
+          </div>
         </div>
       </div>
     </div>

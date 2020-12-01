@@ -4,8 +4,6 @@ import SidebarItem from "./SidebarItem";
 import StateFilter from "./StateFilter";
 import Button from "./global/Button";
 const Sidebar = ({ config }) => {
-  const items = [{ icon: "funnel-outline" }];
-
   return (
     <div className="">
       <div className="mt-8 mx-2">

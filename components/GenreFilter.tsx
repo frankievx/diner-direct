@@ -1,8 +1,6 @@
-import { useState } from "react";
 import Dropdown from './global/Dropdown'
 
 const GenreFilter = ({ genres, genre, onFilter }) => {
-  const [term, setTerm] = useState('');
   const options = genres.map(genre => ({ label: genre, value: genre}))
 
   const selectHandler = (selected) => {

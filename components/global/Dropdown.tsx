@@ -91,8 +91,9 @@ const Dropdown = ({ color, label, options, value, onSelect }) => {
               }
               style={{ minWidth: "12rem" }}
             >
-              {filteredOptions.map((option) => (
+              {filteredOptions.map((option, index) => (
                 <div
+                  key={'option-label-index' + index}
                   className="hover:bg-secondary-1  text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap cursor-pointer"
                   onMouseDown={(e) => optionClickHandler(e, option)}
                 >

@@ -3,7 +3,12 @@ import SearchInput from "./SearchInput";
 import SidebarItem from "./SidebarItem";
 import StateFilter from "./StateFilter";
 import Button from "./global/Button";
+
+
 const Sidebar = ({ config }) => {
+  const filterClickHandler = () => {
+    config.setFilter({ state: config.state, genre: config.genre })
+  }
   return (
     <div className="">
       <div className="mt-8 mx-2">
@@ -16,7 +21,7 @@ const Sidebar = ({ config }) => {
           />
         </div>
         <div className="mt-8">
-          <Button icon="search-outline" label="Search" />
+          <Button icon="search-outline" label="Search" onClick={() => config.searchHandler(config.term)}/>
         </div>
       </div>
       <div className="mt-8 mx-2">
@@ -38,7 +43,7 @@ const Sidebar = ({ config }) => {
           />
         </div>
         <div className="mt-8">
-          <Button icon="filter-outline" label="Filter" />
+          <Button icon="filter-outline" label="Filter" onClick={filterClickHandler}/>
         </div>
 
       </div>

@@ -9,18 +9,17 @@ import Sidebar from '../components/Sidebar'
 
 export default function Index() {
   let items, count, genres, states, loading = false
-  const [ filters, setFilters ] = useState([])
+  const [ filter, setFilter ] = useState({ state: '', genre: ''})
   const [ offset, setOffset ] = useState(0)
   const [ limit, setLimit ] = useState(10)
   const [ search, setSearch ] = useState('')
-  const [term, setTerm] = useState("");
-  const [genre, setGenre] = useState("")
-  const [state, setState] = useState("");
+  const [ term, setTerm ] = useState("");
+  const [ genre, setGenre ] = useState("")
+  const [ state, setState ] = useState("");
 
-  // const [ genres, setGenres ] = useState([])
 
   const { data, mutate, error } = useSWR(
-    `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${genre}", state: "${state}") {name, city, state, phone, genre}, count(search:"${search}", genre: "${genre}", state: "${state}") } }`,
+    `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${filter.genre}", state: "${filter.state}") {name, city, state, phone, genre}, count(search:"${search}", genre: "${filter.genre}", state: "${filter.state}") } }`,
     fetcher
   );
 
@@ -47,17 +46,17 @@ export default function Index() {
   const sidebarConfig = {
     searchHandler,
     term,
-    setTerm,
     genres,
     states,
     genre,
     state,
+    setTerm,
     setState,
-    setGenre
+    setGenre,
+    setFilter
   }
 
   const config = {
-    filters,
     offset,
     limit,
     count,
@@ -67,22 +66,12 @@ export default function Index() {
     paginate
   }
 
-  function addFilter(filter) {
-    let index = filters.findIndex(item => item.field === filter.field)
-    if (index < 0 ) {
-      setFilters([...filters, filter]);
-    }
-    else {
-      let newFilters = filters.splice(index, 1)
-      setFilters(newFilters)
-    }
-  }
-
   function searchHandler(event) {
-    if (event.charCode === 13) {
+    console.log('event', event);
+    if (event.target && event.charCode === 13) {
       setSearch(event.target.value);
-      addFilter({ field: 'search', value: event.target.value })
     }
+    else if (!event.target) setSearch(event)
   }
 
   function paginate(value) {
@@ -96,9 +85,6 @@ export default function Index() {
           <Sidebar config={sidebarConfig}/>
         </div>
         <div className="w-full mx-8">
-          {/* <div className="pt-8 mx-auto">
-            <SearchInput onSearch={searchHandler} />
-          </div> */}
           <div className="mt-8">
             <div className="md:w-full m-auto my-auto">
               <Table config={config} />

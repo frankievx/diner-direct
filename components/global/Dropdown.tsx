@@ -4,7 +4,7 @@ import ClearButton from "../ClearButton"
 
 
 
-const Dropdown = ({ color, label, options, value, onSelect }) => {
+const Dropdown = ({ color, label, options, value, onSelect}) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const [term, setTerm] = React.useState('')
   const [dropdownIcon, setDropdownIcon] = React.useState("chevron-down-outline");
@@ -49,7 +49,7 @@ const Dropdown = ({ color, label, options, value, onSelect }) => {
   const clearHandler = (e) => {
     e.preventDefault()
     setTerm('')
-    onSelect({ label: 'All', value: ''})
+    onSelect({ label: '', value: ''})
   }
 
   const dropdownClickHandler = () => {

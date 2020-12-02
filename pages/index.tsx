@@ -13,10 +13,9 @@ export default function Index() {
   const [ offset, setOffset ] = useState(0)
   const [ limit, setLimit ] = useState(10)
   const [ search, setSearch ] = useState('')
-  const [ term, setTerm ] = useState("");
+  const [ term, setTerm ] = useState("")
   const [ genre, setGenre ] = useState("")
-  const [ state, setState ] = useState("");
-
+  const [ state, setState ] = useState("")
 
   const { data, mutate, error } = useSWR(
     `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${filter.genre}", state: "${filter.state}") {name, city, state, phone, genre}, count(search:"${search}", genre: "${filter.genre}", state: "${filter.state}") } }`,
@@ -67,7 +66,6 @@ export default function Index() {
   }
 
   function searchHandler(event) {
-    console.log('event', event);
     if (event.target && event.charCode === 13) {
       setSearch(event.target.value);
     }

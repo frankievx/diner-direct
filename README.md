@@ -1,8 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
+# Diner Direct
+Live Application: https://diner-direct.vercel.app/
+## Summary
+An application built using Next.js, a React framework with a GraphQL API. No third party component libraries
+are used, just utility classes from Tailwind CSS. Animations are produced using Framer Motion. Search on
+name, city and genre. Filter on state and genre. Sortable on name and state. Table is paginated. Import JSON
+data less than 100kb.
+## Requirements
+- Node JS v12.19.0
 ## Getting Started
-
-First, run the development server:
+First, install all dependencies;
+```bash
+npm install
+# or
+yarn
+```
+Second, run the development server:
 
 ```bash
 npm run dev

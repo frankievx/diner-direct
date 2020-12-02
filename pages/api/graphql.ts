@@ -17,6 +17,22 @@ const typeDefs = gql`
   type Query {
     restaurants: Restaurants!
   }
+  type Mutation {
+    createRestaurants(input: CreateRestaurantsInput): CreateRestaurantPayload!
+  }
+  input CreateRestaurantsInput {
+    restaurants: [RestaurantInput!]
+  }
+  input RestaurantInput {
+    name: String!
+    city: String!
+    state: String!
+    phone: String!
+    genre: String!
+  }
+  type CreateRestaurantPayload {
+    items: [Restaurant!]!
+  }
   type Genres {
     items: [String!]
   }
@@ -24,13 +40,19 @@ const typeDefs = gql`
     genre: [String!]
   }
   type Restaurants {
-    items(search: String = "", genre: String = "", state: String = "", limit: Int = 20, offset: Int = 0): [Restaurant!]!
+    items(
+      search: String = ""
+      genre: String = ""
+      state: String = ""
+      limit: Int = 20
+      offset: Int = 0
+    ): [Restaurant!]!
     genres: [String!]!
     states: [String!]!
     count(search: String = "", genre: String = "", state: String = ""): Int!
   }
   type Restaurant {
-    id: ID!
+    restaurant_id: ID!
     name: String!
     city: String!
     state: String!
@@ -44,6 +66,15 @@ const resolvers = {
     async restaurants(parent, args, { db }) {
       return [];
     },
+  },
+  Mutation: {
+    async createRestaurants (parent, args) {
+      console.log('args', args.input.restaurants);
+      let data = await db("restaurants")
+        .returning("*")
+        .insert(args.input.restaurants);
+      return { items: data }
+    }
   },
   Genres: {
     async items(parent, args, { db }) {
@@ -68,7 +99,6 @@ const resolvers = {
       return genres;
     },
     async items(parent, args, { db }) {
-      console.log('args', args);
       return db
         .select("*")
         .from("restaurants")
@@ -86,8 +116,6 @@ const resolvers = {
         .offset(args.offset);
     },
     async count(parent, args, { db }) {
-            console.log("args", args);
-
       let count = await db("restaurants")
         .where(function () {
           if (args.search) {
@@ -108,9 +136,6 @@ const resolvers = {
       genre.genre;
     },
   },
-  Restaurant: {
-    id: (restaurant, _args, _context) => restaurant.restaurant_id,
-  },
 };
 
 const apolloServer = new ApolloServer({
@@ -120,10 +145,16 @@ const apolloServer = new ApolloServer({
   playground: true,
 });
 
+
+/* 
+  This config is some really bad design that is not documented at all in the apollo-server-micro documentation.
+  If body parser is not false, the api and useSWR fails to work. 
+*/
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
 
 export default apolloServer.createHandler({ path: "/api/graphql" });

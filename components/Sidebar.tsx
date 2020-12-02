@@ -16,7 +16,7 @@ const Sidebar = ({ config }) => {
           />
         </div>
         <div className="mt-8">
-          <Button icon="filter-outline" label="Filter" />
+          <Button icon="search-outline" label="Search" />
         </div>
       </div>
       <div className="mt-8 mx-2">

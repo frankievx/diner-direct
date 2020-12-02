@@ -32,11 +32,12 @@ const Header = () => {
       <div className="flex w-3/4 font-semibold text-xl text-gray-800 ml-24">
         <div className="">
           <div className="flex h-full">
-            {items.map((item) => (
+            {items.map((item, index) => (
               <LinkItem
                 label={item.label}
                 selected={item.label === selected}
                 onSelect={setSelected}
+                key={'linkItem'+index}
               />
             ))}
           </div>

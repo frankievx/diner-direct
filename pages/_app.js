@@ -4,6 +4,8 @@ import Head from "next/head";
 import { useState } from "react"
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import MainLayout from "../layouts/MainLayout";
+import Dialog from "../components/global/Dialog"
+
 
 function SplashScreen() {
   const controls = useAnimation();
@@ -34,23 +36,27 @@ function MyApp({ Component, pageProps, router }) {
   const [showSplashScreen, setShowSplashScreen] = useState(true)
   setTimeout(() => {
     setShowSplashScreen(false)
-    console.log('showSplashScreen', showSplashScreen);
   }, 3000)
   return (
-    <div>
+    <div className="relative">
       <Head>
         <title>Diner Direct</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        />
       </Head>
-      <MainLayout>
-        {/* <AnimatePresence exitBeforeEnter> */}
+      {/* <AnimatePresence exitBeforeEnter> */}
+      <div class="relative">
         {showSplashScreen ? (
           <SplashScreen />
         ) : (
-          <Component {...pageProps} key={router.route} />
+          <MainLayout>
+            <Component {...pageProps} key={router.route} />
+          </MainLayout>
         )}
-        {/* </AnimatePresence> */}
-      </MainLayout>
+      </div>
+      {/* </AnimatePresence> */}
       <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     </div>
   );

@@ -1,13 +1,8 @@
-const ClearButton = ({ clearable, onClear }) => {
+import IconButton from "./global/IconButton"
+const ClearButton = ({ clearable, onClear, size }) => {
   if (clearable)
     return (
-      <div
-        className="text-gray-600 my-auto mr-1 h-auto cursor-pointer rounded-full hover:bg-gray-200"
-        style={{ height: "18px" }}
-        onMouseDown={onClear}
-      >
-        <ion-icon class="block" name="close-outline"></ion-icon>
-      </div>
+      <IconButton icon="close-outline" onClick={onClear} size={size} />
     );
   else return <></>;
 };

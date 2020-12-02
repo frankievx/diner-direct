@@ -13,8 +13,8 @@ const TableCell = (props) => {
     "h-8",
     "truncate",
     {
-      "rounded-l-lg": column.index === 0,
-      "rounded-r-lg": column.last,
+      "rounded-l": column.index === 0,
+      "rounded-r": column.last,
       "pl-2": column.index === 0,
       "pr-2": column.last,
       "ml-4": column.index === 0,

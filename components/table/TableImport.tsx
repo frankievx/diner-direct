@@ -11,9 +11,6 @@ const TableImport = () => {
     setFile(e.target.files[0])
   }
 
-  let uploadFileHandler = () => {
-    fileInputRef.current.click()
-  }
 
 
   return (

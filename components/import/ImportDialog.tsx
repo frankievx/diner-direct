@@ -6,6 +6,8 @@ import IconButton from '../global/IconButton';
 import { request, gql } from 'graphql-request'
 import { GraphQLList } from 'graphql'
 
+const dialogInfo = "Importing JSON data will clear all current data. \nFile must be JSON. \nFile must be less than 100kb."
+
 const CREATE_RESTAURANTS = gql`
   mutation createRestaurants($input: CreateRestaurantsInput!) {
     createRestaurants(input: $input) {
@@ -97,6 +99,11 @@ const ImportDialog = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} title="Import JSON" onClose={onClose}>
+      <div>
+        <div className="whitespace-pre w-full bg-primary rounded-lg p-3 text-left text-white mb-4">
+          {dialogInfo}
+        </div>
+      </div>
       <div className="mx-auto">
         <input
           ref={fileInputRef}
@@ -104,11 +111,15 @@ const ImportDialog = ({ open, onClose }) => {
           type="file"
           onChange={onFileChange}
         />
-        <SelectFileButton file={file} onClick={uploadFileHandler}  onRemove={removeHandler}/>
+        <SelectFileButton
+          file={file}
+          onClick={uploadFileHandler}
+          onRemove={removeHandler}
+        />
       </div>
       <div className="mt-8 flex justify-end">
         <div className="mx-auto my-auto text-secondary">{errorMessage}</div>
-        <ImportButton file={file} onClick={importFileHandler}/>
+        <ImportButton file={file} onClick={importFileHandler} />
         {/* <div className="w-32">
           <Button icon="cloud-upload-outline" label="Import" onClick={importFileHandler}/>
         </div> */}

@@ -15,10 +15,30 @@ db.raw("select 1+1 as result")
 
 const typeDefs = gql`
   type Query {
-    restaurants: Restaurants!
+    restaurants(
+      search: String
+      genre: String
+      state: String
+      offset: Int
+      limit: Int
+      sort: [RestaurantSortInput]
+    ): Restaurants!
   }
   type Mutation {
     createRestaurants(input: CreateRestaurantsInput): CreateRestaurantPayload!
+  }
+  input FetchRestaurantsInput {
+    search: String
+    genre: String
+    state: String
+    offset: Int
+    limit: Int
+    # sort: [RestaurantSortInput]
+  }
+  input CountRestaurantsInput {
+    search: String
+    genre: String
+    state: String
   }
   input CreateRestaurantsInput {
     restaurants: [RestaurantInput!]
@@ -46,10 +66,15 @@ const typeDefs = gql`
       state: String = ""
       limit: Int = 20
       offset: Int = 0
+      sort: [RestaurantSortInput!]!
     ): [Restaurant!]!
     genres: [String!]!
     states: [String!]!
     count(search: String = "", genre: String = "", state: String = ""): Int!
+  }
+  type RestaurantItemField {
+    field: String
+    sort: String
   }
   type Restaurant {
     restaurant_id: ID!
@@ -58,6 +83,14 @@ const typeDefs = gql`
     state: String!
     phone: String!
     genre: String!
+  }
+  input RestaurantSortInput {
+    field: String
+    order: String!
+  }
+  enum Sort {
+    asc
+    desc
   }
 `;
 
@@ -70,6 +103,7 @@ const resolvers = {
   Mutation: {
     async createRestaurants (parent, args) {
       console.log('args', args.input.restaurants);
+      await db("restaurants").del()
       let data = await db("restaurants")
         .returning("*")
         .insert(args.input.restaurants);
@@ -99,10 +133,14 @@ const resolvers = {
       return genres;
     },
     async items(parent, args, { db }) {
+      console.log('args', args);
+      let order = (args.sort.length > 0 ) ? args.sort.map(item => ({ column: item.field, order: item.order })) : []
+      console.log('order', order);
+      // let order = []
       return db
         .select("*")
         .from("restaurants")
-        .orderBy("name", "asc")
+        .orderBy(order)
         .where(function (qb) {
           if (args.search) {
             qb.where("name", "ILIKE", `%${args.search}%`);

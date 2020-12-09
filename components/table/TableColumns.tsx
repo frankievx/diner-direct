@@ -1,11 +1,12 @@
 import TableHeader from './TableHeader'
 import TableRows from './TableRows'
 import { useState } from 'react'
-const TableColumns = ({ columns, rows, loading }) => {
+const TableColumns = ({ sort, columns, rows, loading, onSort }) => {
   let [hoverIndex, setHoverIndex] = useState(null);
   const unhighlightRow = () => {
     setTimeout(() => setHoverIndex(null), 1);
   };
+
   if (loading) return (
     <div>
       <div
@@ -16,6 +17,8 @@ const TableColumns = ({ columns, rows, loading }) => {
           <div key={"column" + i}>
             <TableHeader
               column={{ ...column, index: i, last: columns.length - 1 === i }}
+              sort={sort}
+              onSort={onSort}
             />
           </div>
         ))}
@@ -24,7 +27,7 @@ const TableColumns = ({ columns, rows, loading }) => {
         <div className="mx-auto my-auto">Loading...</div>
       </div>
     </div>
-  )
+  );
   else if(rows.length > 0) return (
     <div
       className="grid grid-flow-col-dense auto-cols-auto"
@@ -34,6 +37,8 @@ const TableColumns = ({ columns, rows, loading }) => {
         <div key={"column" + i}>
           <TableHeader
             column={{ ...column, index: i, last: columns.length - 1 === i }}
+            onSort={onSort}
+            sort={sort}
           />
           <TableRows
             rows={rows}

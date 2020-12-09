@@ -45,7 +45,7 @@ const TablePagination = ({ limit, offset, count, paginate }) => {
     max = 0;
   } else {
     min = count <= offset ? 0 : offset;
-    max = min + limit <= count ? min + limit : count - offset;
+    max = (min + limit) <= count ? min + limit : count;
   }
   if (offset > 0) disableBack = false;
   if (offset + limit >= count) disableForward = true;

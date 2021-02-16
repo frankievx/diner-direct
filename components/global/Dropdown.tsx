@@ -8,9 +8,9 @@ const Dropdown = ({ color, label, options, value, onSelect}) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const [term, setTerm] = React.useState('')
   const [dropdownIcon, setDropdownIcon] = React.useState("chevron-down-outline");
-  const btnDropdownRef = React.createRef();
-  const inputDropdownRef = React.createRef()
-  const popoverDropdownRef = React.createRef();
+  const btnDropdownRef = React.createRef<HTMLDivElement>();
+  const inputDropdownRef = React.createRef<HTMLDivElement>()
+  const popoverDropdownRef = React.createRef<HTMLElement>();
   const openDropdownPopover = () => {
     new Popper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
@@ -79,7 +79,7 @@ const Dropdown = ({ color, label, options, value, onSelect}) => {
               />
               <ClearButton clearable={!!term} onClear={clearHandler}/>
               <div className="text-gray-600 border-l border-gray-300 border-solid my-auto pl-1 cursor-pointer">
-                <ion-icon class="block"  name={dropdownIcon}></ion-icon>
+                <ion-icon className="block"  name={dropdownIcon}></ion-icon>
               </div>
             </div>
 

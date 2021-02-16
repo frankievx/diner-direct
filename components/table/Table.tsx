@@ -18,7 +18,6 @@ const Table = ({ config }) => {
     sort,
     sortHandler,
   } = config;
-  console.log("table sort", sort);
 
   const downloadJSON = () => {};
 

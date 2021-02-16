@@ -2,6 +2,7 @@ import TableHeader from './TableHeader'
 import TableRows from './TableRows'
 import { useState } from 'react'
 const TableColumns = ({ sort, columns, rows, loading, onSort }) => {
+  console.log('sort columns', sort);
   let [hoverIndex, setHoverIndex] = useState(null);
   const unhighlightRow = () => {
     setTimeout(() => setHoverIndex(null), 1);

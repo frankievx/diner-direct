@@ -85,7 +85,7 @@ const TableHeader = ({ column, sort, onSort }) => {
     { "mr-4": column.last }
   );
   const filterClassNames = classNames("m-1", "flex");
-  const sortIndex = sort.findIndex(item => item.field === column.field)
+  const sortIndex = (sort) ? sort.findIndex(item => item.field === column.field) : -1
   if (column.sortable)
     return (
       <div>

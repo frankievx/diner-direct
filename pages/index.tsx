@@ -6,6 +6,23 @@ import SearchInput from '../components/SearchInput'
 import Sidebar from '../components/Sidebar'
 import { gql } from 'graphql-request'
 
+interface Filter {
+  state: string,
+  genre: string
+}
+
+interface Sort {
+  field: string,
+  order: string
+}
+
+interface Column {
+  label: string;
+  field: string;
+  sortable: boolean;
+  sort?: Sort;
+}
+
 const restaurantsQuery = gql`
   query(
     $search: String
@@ -37,9 +54,21 @@ const restaurantsQuery = gql`
   }
 `;
 
-let queryVariables = {}
+let queryVariables: {
+  search: string;
+  genre: string;
+  state: string;
+  offset: number;
+  limit: number;
+} = {
+  search: null,
+  genre: null,
+  state: null,
+  offset: null,
+  limit: null
+}
 
-const initialColumns = [
+const initialColumns: Column[] = [
   { label: "Name", field: "name", sortable: true },
   { label: "City", field: "city", sortable: false },
   { label: "State", field: "state", sortable: true },
@@ -49,16 +78,16 @@ const initialColumns = [
 
 export default function Index() {
   let items, count, genres, states, loading = false
-  const [ filter, setFilter ] = useState({ state: '', genre: ''})
+  const [ filter, setFilter ] = useState<Filter>({ state: '', genre: ''})
   const [ offset, setOffset ] = useState(0)
   const [ limit, setLimit ] = useState(10)
   const [ search, setSearch ] = useState('')
   const [ term, setTerm ] = useState("")
   const [ genre, setGenre ] = useState("")
   const [ state, setState ] = useState("")
-  const [ columns, setColumns ] = useState(
-    initialColumns.map((column) => {
-      return { ...column, sort: "" };
+  const [ columns, setColumns ] = useState<Column[]>(
+    initialColumns.map((column:Column): Column => {
+      return { ...column, sort: null };
     })
   );
   const [ sort, setSort ] = useState([])
@@ -69,31 +98,17 @@ export default function Index() {
   queryVariables.offset = offset;
   queryVariables.limit = limit;
   
-
-  
-
-  // const sort = columns.filter(item => item.sort).map(item => ({ field: item.field, order: item.sort}))
-
-  // queryVariables = {
-  //   search,
-  //   genre: filter.genre,
-  //   state: filter.state,
-  //   offset,
-  //   limit
-  // }
-  // console.log('queryVariables', queryVariables);
   const { data, mutate, error } = useSWR(
     [restaurantsQuery, search, filter.genre, filter.state, offset, limit, sort],
     (query, search, genre, state, offset, limit, sort) =>
       fetcher(query, { search, genre, state, offset, limit, sort })
   );
 
-  // const { data, mutate, error } = useSWR(
-  //   `{ restaurants { states, genres, items(offset:${offset}, limit:${limit}, search:"${search}", genre: "${filter.genre}", state: "${filter.state}", sort: "${sort}") {name, city, state, phone, genre}, count(search:"${search}", genre: "${filter.genre}", state: "${filter.state}") } }`,
-  //   fetcher
-  // );
-
-  if (error) return <div>Failed to load</div>
+  if (error) return (
+    <div className="flex justify-center items-center text-2xl">
+      Failed to load
+    </div>
+  )
   if (!data) {
     items = [], count = 0, genres = [], states = [], loading = true
   } else {
@@ -138,16 +153,14 @@ export default function Index() {
   }
 
   function sortHandler(field) {
-    console.log('field', field);
-    let newColumns = columns.slice()
-    let columnIndex = newColumns.findIndex((item) => item.field === field);
-    let column = newColumns[columnIndex];
+    let newColumns: Column[] = columns.slice()
+    let columnIndex: number = newColumns.findIndex((item) => item.field === field);
+    let column: Column = newColumns[columnIndex];
 
-    let newSort = sort.slice()
-    let sortIndex = newSort.findIndex(item => item.field === field)
-    console.log('sortIndex', sortIndex);
+    let newSort: Sort[] = sort.slice()
+    let sortIndex: number = newSort.findIndex(item => item.field === field)
     if (sortIndex > -1) {
-      let sortItem = newSort[sortIndex]
+      let sortItem: Sort = newSort[sortIndex]
       newSort.splice(sortIndex, 1);
       if (sortItem.order === "") {
         newSort.push({ field, order: "asc" });

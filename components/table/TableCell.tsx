@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { useRef } from 'react'
 const TableCell = (props) => {
   const { rows, row, column, hoverIndex, setHoverIndex } = props
-  const cellRef = useRef()
+  const cellRef = useRef<HTMLDivElement>()
   
   let parentClasses = classNames({"border-b": !row.last}, "border-solid", "border-gray-200", "last:border-b-0", "text-gray-900");
   let classes = classNames(

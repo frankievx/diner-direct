@@ -4,7 +4,7 @@ const ClearButton = ({ clearable, onClear, size }) => {
     return (
       <IconButton icon="close-outline" onClick={onClear} size={size} />
     );
-  else return <></>;
+  else return null;
 };
 
 export default ClearButton

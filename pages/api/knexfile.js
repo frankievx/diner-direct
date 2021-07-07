@@ -1,6 +1,8 @@
 require("dotenv").config({ path: "../../.env.local" });
 
 
+console.log('process.env.PG_DATABASE', process.env.PG_DATABASE);
+console.log('process.env.PG_USERNAME', process.env.PG_USERNAME);
 module.exports = {
   development: {
     client: "pg",
